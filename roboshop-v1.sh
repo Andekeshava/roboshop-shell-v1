@@ -19,27 +19,23 @@ do
     )    
     echo "$instance ID = $instance_id"
 
-    if[ $instance != "frontend" ]; then
-       IP=$(aws ec2 describe-instances \
-       --instance-ids $instance_id \
-       --query 'Reservations[*].Instances[*].PrivateIpAddress' \
-       --output text) 
+    if [ $instance != "frontend" ]; then
+        IP=$(aws ec2 describe-instances --instance-ids $instance_id \
+             --query 'Reservations[].Instances[].PrivateIpAddress' --output text
+        ) 
        
        route_53_record="$instance.$domain_name"
 
     else
-       IP=$(aws ec2 describe-instances \
-       --instance-ids $instance_id \
-       --query 'Reservations[*].Instances[*].PublicIpAddress' \
-       --output text) 
+       IP=$(aws ec2 describe-instances --instance-ids $instance_id \
+            --query 'Reservations[].Instances[].PublicIpAddress' --output text
+       ) 
 
        route_53_record="$domain_name"
     fi   
 
     #update route 53 record
 
-
-    
     aws route53 change-resource-record-sets \
     --hosted-zone-id Z021725625Q0QW58HS52C \
     --change-batch '{
