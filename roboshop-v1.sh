@@ -18,6 +18,5 @@ do
             --output text
     )    
     echo "$instance ID = $instance_id"
-    echo "hi"
 
 done
