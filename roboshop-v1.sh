@@ -37,16 +37,16 @@ do
     #update route 53 record
     echo "record=$route_53_record"
     aws route53 change-resource-record-sets \
-    --hosted-zone-id $hosted_zone_id \
+    --hosted-zone-id ${hosted_zone_id} \
     --change-batch '{
         "Changes": [
             {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
-                "Name": "${route_53_record}",
+                "Name": "'$route_53_record'",
                 "Type": "A",
                 "TTL": 1,
-                "ResourceRecords": [{"Value": "${IP}"}]
+                "ResourceRecords": [{"Value": "'$IP'"}]
                 }
             }
         ]
