@@ -24,6 +24,7 @@ validate(){
        exit 1
     else
        echo "${2} is SUCCESS" | tee -a $log_file
+    fi   
 }
 
 dnf module enable mysql:8.4 -y &>> $log_file
