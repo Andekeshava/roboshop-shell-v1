@@ -23,7 +23,7 @@ validate(){
    fi
 }
 
-cp mangodb.repo /etc/yum.repos.d/mongo.repo
+cp mongodb.repo /etc/yum.repos.d/mongo.repo
 validate $? "Adding mongo repo"
 
 dnf install mongodb-org -y
@@ -37,4 +37,5 @@ sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 systemctl restart mongod
 validate $? "Restarted MongoDB"
 
-
+echo "script completed execution in $SECONDS seconds"
+echo "$(date "+%D %T") [INFO] ====== SCRIPT COMPLETED ====="
