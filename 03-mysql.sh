@@ -22,7 +22,7 @@ validate(){
     if [ $1 -ne 0 ]; then
        echo "${2} is FAILED" | tee -a $log_file
        exit 1
-    echo
+    else
        echo "${2} is SUCCESS" | tee -a $log_file
 }
 
