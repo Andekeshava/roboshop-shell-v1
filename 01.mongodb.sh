@@ -26,15 +26,15 @@ validate(){
 cp mongodb.repo /etc/yum.repos.d/mongo.repo
 validate $? "Adding mongo repo"
 
-dnf install mongodb-org -y
+dnf install mongodb-org -y &>> ${log_file}
 validate $? "Mongodb Installation"
 
-systemctl enable mongod
-systemctl start mongod
+systemctl enable mongod &>> ${log_file}
+systemctl start mongod &>> ${log_file}
 validate $? "Enabled and Started MongoDB"
 
 sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
-systemctl restart mongod
+systemctl restart mongod &>> ${log_file}
 validate $? "Restarted MongoDB"
 
 echo "script completed execution in $SECONDS seconds"
