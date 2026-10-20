@@ -2,7 +2,7 @@
 
 USER_ID=$(id -u)
 
-log_folder="/var/log/roboshop"
+log_folder="/var/log/roboshop/"
 log_file="${log_folder}/{0}.log"
 
 if [ $USER_ID -ne 0 ]; then
@@ -26,15 +26,15 @@ validate(){
 cp mongodb.repo /etc/yum.repos.d/mongo.repo
 validate $? "Adding mongo repo"
 
-dnf install mongodb-org -y &>> ${log_file}
+dnf install mongodb-org -y &>> $log_file
 validate $? "Mongodb Installation"
 
-systemctl enable mongod &>> ${log_file}
-systemctl start mongod &>> ${log_file}
+systemctl enable mongod &>> $log_file
+systemctl start mongod &>> $log_file
 validate $? "Enabled and Started MongoDB"
 
 sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
-systemctl restart mongod &>> ${log_file}
+systemctl restart mongod &>> $log_file
 validate $? "Restarted MongoDB"
 
 echo "script completed execution in $SECONDS seconds"
