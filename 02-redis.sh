@@ -16,10 +16,10 @@ timestamp(){
 }
 
 validate(){
-    if [ ${1} -ne 0 ]; then
+    if [ $1 -ne 0 ]; then
        echo "${2} is Failed" #| tee -a $log_file
        exit 1
-    echo
+    else
        echo "${2} is Success" #| tee -a $log_file
     fi      
 }
