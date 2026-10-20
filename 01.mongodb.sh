@@ -3,7 +3,7 @@
 USER_ID=$(id -u)
 
 log_folder="/var/log/roboshop/"
-log_file="${log_folder}/{0}.log"
+log_file="${log_folder}/${0}.log"
 
 if [ $USER_ID -ne 0 ]; then
     echo "Please run the script using SUDO access"
