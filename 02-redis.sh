@@ -39,7 +39,7 @@ systemctl start redis &>> $log_file
 validate $? "Enabled and Started Redis"
 
 
-echo "SCRIPT COMPLETED EXECUTION in $SECONDS seconds"
+echo "[INFO] ===== SCRIPT COMPLETED EXECUTION in $SECONDS seconds ====="
 echo "$(timestamp) [INFO] ====== SCRIPT COMPLETED EXECUTION ======" | tee -a $log_file
 
 
