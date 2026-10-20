@@ -10,7 +10,7 @@ if [ $USER_ID -ne 0 ]; then
     exit 1
 fi
 
-mkdir -p ${log_file}
+mkdir -p $log_folder
 
 echo "$(date "+%D %T") [INFO] ====== SCRIPT STARTED ====="
 
