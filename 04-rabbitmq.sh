@@ -43,6 +43,7 @@ if [ $1 -ne 0 ]; then
    validate $? "Adding rabbitmq user for roboshop"
 echo
    echo "$(timestamp) [INFO] ==== User rabbitMQ is already created ==== SKIPPING"
+fi   
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"   &>> $log_file
 validate $? "Adding permissions for the roboshop user"
