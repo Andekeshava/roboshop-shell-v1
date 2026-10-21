@@ -38,7 +38,7 @@ systemctl start rabbitmq-server  &>> $log_file
 validate $? "Enabled and Started RabbitMQ"
 
 rabbitmqctl list_users | grep -qw roboshop
-if [ $1 -ne 0 ]; then
+if [ $? -ne 0 ]; then
    rabbitmqctl add_user roboshop roboshop123
    validate $? "Adding rabbitmq user for roboshop"
 echo
