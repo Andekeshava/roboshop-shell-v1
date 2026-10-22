@@ -39,9 +39,9 @@ validate $? "Installation of maven and java"
 alternatives --set java /usr/lib/jvm/java-25-openjdk/bin/java
 validate $? "Setting java 15 as default version"
 
-echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
-source /etc/profile.d/java.sh
-echo $JAVA_HOME
+echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh &>> $log_file
+source /etc/profile.d/java.sh &>> $log_file
+echo $JAVA_HOME &>> $log_file
 validate $? "Setting Java Home for maven"
 
 java -version &>> $log_file
@@ -77,6 +77,9 @@ dnf install mysql -y &>> $log_file
 validate $? "Installing mysql ciient"
 
 
+
+echo "[INFO] ===== SCRIPT COMPLETED EXECUTION in $SECONDS seconds ====="
+echo "$(timestamp) [INFO] ====== SCRIPT COMPLETED EXECUTION ======" | tee -a $log_file
 
 
 
