@@ -11,14 +11,21 @@ if [ $USER_ID -ne 0 ]; then
    exit 1
 fi
 
+timestamp(){
+    date "+%D %T"
+}
+
 validate(){
     if [ $1 -ne 0 ]; then
-       echo "${2} FAILED" | tee -a $log_file
+       echo "$(timestamp) [INFO] ====== ${2} FAILED" | tee -a $log_file
        exit 1
     else
-       echo "${2} SUCCESS" | tee -a $log_file
+       echo "$(timestamp) [INFO] ====== ${2} SUCCESS" | tee -a $log_file
     fi   
 }
+
+echo "$(timestamp) [INFO] ====== SCRIPT STARTED EXECUTION ======"
+
 
 mkdir -p ${log_folder}
 
@@ -35,8 +42,8 @@ else
    echo "Roboshop user already created"
 fi
 
-rm -rf /app 
-validate $? "Removing Old Code"
+rm -rf /app &>> $log_file
+validate $? "$(timestamp) [INFO] ====== Removing Old Code"
 
 mkdir /app
 curl -L -o /tmp/cart.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/cart-v4.zip  &>> $log_file
