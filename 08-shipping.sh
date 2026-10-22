@@ -48,7 +48,7 @@ java -version
 mvn -v
 validate $? "Checking the Javan and Maven version"
 
-id roboshop
+id roboshop &>> $log_file
 if [ $? -ne 0 ]; then
    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
    validate $? "Creating Roboshop user for shipping"
@@ -61,13 +61,13 @@ curl -L -o /tmp/shipping.zip https://raw.githubusercontent.com/daws-92s/roboshop
 validate $? "Downloading Shipping service code"
 
 cd /app
-unzip /tmp/shipping.zip
+unzip /tmp/shipping.zip  &>> $log_file
 validate $? "Unzipping the code into app directory"
 
 mvn clean package &>> $log_file
 validate $? "Installing maven dependencies"
 
-mv target/shipping.jar shipping.jar
+mv target/shipping.jar shipping.jar  
 validate $? "Moving target folder to shipping folder"
 
 sed -i "s/DOMAIN_NAME/$domain_name/g"  "$script_dir/shipping.service"
