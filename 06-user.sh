@@ -50,6 +50,7 @@ mkdir /app
 curl -L -o /tmp/user.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip  &>> $log_file
 validate $? "Downloading the application code"
 
+cd /app
 unzip /tmp/user.zip &>> $log_file
 validate $? "Unzipping the code into App directory"
 
