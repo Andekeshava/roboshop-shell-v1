@@ -7,7 +7,7 @@ log_file="${log_folder}/{0}.log"
 domain_name="jkrdigital.store"
 script_dir=$(dirname "$(realpath "$0")")
 
-if [ $1 -ne 0 ]; then
+if [ $USER_ID -ne 0 ]; then
    echo "Run the script the using sudo access"
    exit 1
 fi
