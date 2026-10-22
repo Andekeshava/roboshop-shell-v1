@@ -53,7 +53,7 @@ if [ $? -ne 0 ]; then
    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
    validate $? "Creating Roboshop user for shipping"
 else
-   echo "Roboshop user for shipping is already created"
+   echo "$(timestamp) [INFO] ====== Roboshop user for shipping is already created"
 fi
 
 mkdir /app
