@@ -44,8 +44,8 @@ source /etc/profile.d/java.sh
 echo $JAVA_HOME
 validate $? "Setting Java Home for maven"
 
-java -version
-mvn -v
+java -version &>> $log_file
+mvn -v &>> $log_file
 validate $? "Checking the Javan and Maven version"
 
 id roboshop &>> $log_file
