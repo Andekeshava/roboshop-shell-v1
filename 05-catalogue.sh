@@ -25,6 +25,8 @@ validate(){
     fi   
 }
 
+mkdir -p $log_folder
+
 dnf module disable nodejs -y &>> $log_file
 dnf module enable nodejs:24 -y &>> $log_file
 dnf install nodejs -y &>> $log_file
