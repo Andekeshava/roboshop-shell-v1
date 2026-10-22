@@ -2,7 +2,7 @@
 
 USER_ID=$(id -u)
 
-log_folder="/var/log/roboshop/"
+log_folder="/var/log/roboshop"
 log_file="${log_folder}/{0}.log"
 domain_name="jkrdigital.store"
 script_dir=$(dirname "$(realpath "$0")")
@@ -26,6 +26,8 @@ validate(){
 }
 
 mkdir -p $log_folder
+
+echo "$(timestamp) [INFO] ===== SCRIPT STARTED EXECUTION ====="
 
 dnf module disable nodejs -y &>> $log_file
 dnf module enable nodejs:24 -y &>> $log_file
