@@ -12,7 +12,11 @@ fi
 
 mkdir -p $log_folder
 
-echo "$(date "+%D %T") [INFO] ====== SCRIPT STARTED ====="
+timestamp(){
+    date "+%D %T"
+}
+
+echo "$(timestamp) [INFO] ====== SCRIPT STARTED ====="
 
 validate(){
    if [ $1 -ne 0 ]; then
@@ -37,5 +41,5 @@ sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 systemctl restart mongod &>> $log_file
 validate $? "Restarted MongoDB"
 
-echo "script completed execution in $SECONDS seconds"
-echo "$(date "+%D %T") [INFO] ====== SCRIPT COMPLETED ====="
+echo "$(timestamp) [INFO] ====== script completed execution in $SECONDS seconds"
+echo "$(timestamp) [INFO] ====== SCRIPT COMPLETED ====="
