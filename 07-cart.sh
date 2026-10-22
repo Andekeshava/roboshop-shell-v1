@@ -17,6 +17,7 @@ validate(){
        exit 1
     else
        echo "${2} SUCCESS"
+    fi   
 }
 
 mkdir -p ${log_folder}
@@ -44,4 +45,15 @@ validate $? "Downloading the cart application code"
 cd /app
 unzip /tmp/cart.zip
 validate $? "Unzipping the code into app directory"
+
+npm install
+validate $? "Installing dependencies into app directory"
+
+sed -i "s/DOMAIN_NAME/$domain_name/g"    "$script_dir/cart.service"
+cp "$script_dir/cart.service"   "/etc/systemd/system/cart.service"
+
+systemctl daemon-reload
+systemctl enable cart
+systemctl start cart
+validate $? "Enabled and Starting Cart service"
 
