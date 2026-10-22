@@ -76,7 +76,7 @@ dnf install mongodb-mongosh -y  &>> $log_file
 validate $? "Installing MongoDB Client"
 
 
-product_count="$(mongosh --host mongodb.$domain_name --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()' 2>> $log_file)"
+product_count=$(mongosh --host mongodb.$domain_name --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()' 2>> $log_file)
 validate $? "Mongodb connecting"
 
 
