@@ -25,13 +25,9 @@ validate(){
     fi     
 }
 
-mkdir -p $log_folder
-
 echo "$(timestamp) [INFO] ====== SCRIPT STARTED EXECUTION ======"
 
-rm -rf /app
-validate $? "Removing old code"
-
+mkdir -p $log_folder
 
 dnf module disable nodejs -y            &>> $log_file
 dnf module enable nodejs:24 -y          &>> $log_file
@@ -46,7 +42,13 @@ else
     echo "Roboshop user is already created....==== SKIPPING ===="
 fi
 
+rm -rf /app
+validate $? "Removing old code"
+
 mkdir /app
+validate $? "Creating app directory"
+
+
 curl -L -o /tmp/user.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip  &>> $log_file
 validate $? "Downloading the application code"
 
