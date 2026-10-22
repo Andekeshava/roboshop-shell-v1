@@ -36,17 +36,19 @@ dnf module enable maven:3.9 -y  &>> $log_file
 dnf install maven java-25-openjdk-devel -y  &>> $log_file
 validate $? "Installation of maven and java"
 
-alternatives --set java /usr/lib/jvm/java-25-openjdk/bin/java
-validate $? "Setting java 15 as default version"
 
-echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh &>> $log_file
-source /etc/profile.d/java.sh &>> $log_file
-echo $JAVA_HOME &>> $log_file
-validate $? "Setting Java Home for maven"
+dnf module enable maven:3.9 -y &>> "$log_file"
+dnf install maven java-25-openjdk-devel -y &>> "$log_file"
+validate $? "Installation of maven and Java 25"
 
-java -version &>> $log_file
-mvn -v &>> $log_file
-validate $? "Checking the Javan and Maven version"
+export JAVA_HOME=/usr/lib/jvm/java-25-openjdk
+export PATH="$JAVA_HOME/bin:$PATH"
+
+java -version &>> "$log_file"
+javac -version &>> "$log_file"
+mvn -version &>> "$log_file"
+validate $? "Checking Java and Maven versions"
+
 
 id roboshop &>> $log_file
 if [ $? -ne 0 ]; then
