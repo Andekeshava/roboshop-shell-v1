@@ -24,6 +24,8 @@ validate(){
     fi     
 }
 
+mkdir -p $log_folder
+
 echo "$(timestamp) [INFO] ====== SCRIPT STARTED EXECUTION ======"
 
 dnf module disable nodejs -y            &>> $log_file
