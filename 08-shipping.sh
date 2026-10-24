@@ -87,7 +87,7 @@ else
     echo "$(timestamp) [INFO] ====== Data is already loaded.....SKIPPING"
 fi
 
-mysql -h mysql.$domain_name -uroot -pRoboShop@1 < /app/db/app-user.sql $log_file
+mysql -h mysql.$domain_name -uroot -pRoboShop@1 < /app/db/app-user.sql $>>log_file
 validate $? "Creating App User"
 
 systemctl daemon-reload $log_file
