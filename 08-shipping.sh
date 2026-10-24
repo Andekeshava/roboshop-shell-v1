@@ -78,12 +78,13 @@ cp "$script_dir/shipping.service"  "/etc/systemd/system/shipping.service"
 dnf install mysql -y &>> $log_file
 validate $? "Installing mysql ciient"
 
-count=$(mysql -h "mysql.$domain_name"-u root -pRoboShop@1 -N -B -e "SELECT COUNT(*) FROM cities.cities;" 2>> $log_file)
+count=$(mysql -h "mysql.$domain_name" -u root -pRoboShop@1 -N -B -e "SELECT COUNT(*) FROM cities.cities;" 2>> "$log_file")
+
 if [ -z "$count" ] || [ "$count" -eq 0 ]; then
-   mysql -h mysql.$domain_name -uroot -pRoboShop@1 < /app/db/master-data.sql
-   validate $? "Loading shipping data"
+    mysql -h "mysql.$domain_name" -u root -pRoboShop@1 < /app/db/master-data.sql 2>> "$log_file"
+    validate $? "Loading shipping data"
 else
-   echo "$(timestamp) [INFO] ====== Data is already loaded.....SKIPPING"
+    echo "$(timestamp) [INFO] ====== Data is already loaded.....SKIPPING"
 fi
 
 mysql -h mysql.$domain_name -uroot -pRoboShop@1 < /app/db/app-user.sql $log_file
