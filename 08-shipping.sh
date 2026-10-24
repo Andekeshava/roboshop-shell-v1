@@ -78,6 +78,25 @@ cp "$script_dir/shipping.service"  "/etc/systemd/system/shipping.service"
 dnf install mysql -y &>> $log_file
 validate $? "Installing mysql ciient"
 
+count=$(mysql -h "mysql.$domain_name"-u root -pRoboShop@1 -N -B -e "SELECT COUNT(*) FROM cities.cities;" 2>> $log_files)
+if [ -z "$count" ] || [ "$count" -eq 0 ]; then
+   mysql -h mysql.$domain_name -uroot -pRoboShop@1 < /app/db/master-data.sql
+   validate $? "Loading shipping data"
+else
+   echo "$(timestamp) [INFO] ====== Data is already loaded.....SKIPPING"
+fi
+
+mysql -h mysql.$domain_name -uroot -pRoboShop@1 < /app/db/app-user.sql
+validate $? "Creating App User"
+
+systemctl daemon-reload
+systemctl enable shipping
+systemctl start shipping
+validate $? "Enabling and Starting Shipping"
+
+systemctl restart shipping
+validate $? "Restaring shipping"
+
 
 
 echo "[INFO] ===== SCRIPT COMPLETED EXECUTION in $SECONDS seconds ====="
