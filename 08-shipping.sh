@@ -90,9 +90,9 @@ fi
 mysql -h mysql.$domain_name -uroot -pRoboShop@1 < /app/db/app-user.sql &>> $log_file
 validate $? "Creating App User"
 
-systemctl daemon-reload $log_file
-systemctl enable shipping $log_file
-systemctl start shipping $log_file
+systemctl daemon-reload &>> $log_file
+systemctl enable shipping &>> $log_file
+systemctl start shipping &>> $log_file
 validate $? "Enabling and Starting Shipping"
 
 systemctl restart shipping $log_file
