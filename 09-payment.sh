@@ -2,7 +2,7 @@
 
 USER_ID=$(id -u)
 
-log_folder="var/log/roboshop"
+log_folder="/var/log/roboshop"
 log_file="${log_folder}/$0.log"
 domain_name="jkrdigital.store"
 script_dir=$(dirname "$(realpath "$0")")
