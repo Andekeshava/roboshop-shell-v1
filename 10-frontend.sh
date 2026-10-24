@@ -36,8 +36,8 @@ systemctl enable nginx  &>> $log_file
 systemctl start nginx   &>> $log_file
 validate $? "Enabling and Starting Nginx"
 
-rm -rf /usr/share/nginx/html/*
-curl -L -o /tmp/frontend.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip
+rm -rf /usr/share/nginx/html/* &>> $log_file
+curl -L -o /tmp/frontend.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip &>> $log_file
 validate $? "Downloading code into Nginx Default Location"
 
 cd /usr/share/nginx/html &>> $log_file
