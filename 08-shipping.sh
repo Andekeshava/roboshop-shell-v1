@@ -95,7 +95,7 @@ systemctl enable shipping &>> $log_file
 systemctl start shipping &>> $log_file
 validate $? "Enabling and Starting Shipping"
 
-systemctl restart shipping $log_file
+systemctl restart shipping &>> $log_file
 validate $? "Restaring shipping"
 
 
