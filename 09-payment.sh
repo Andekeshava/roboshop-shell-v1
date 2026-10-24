@@ -60,7 +60,7 @@ systemctl enable payment &>> $log_file
 systemctl start payment &>> $log_file
 validate $? "Enabling and Starting payment"
 
-systemctl restart shipping &>> $log_file
+systemctl restart payment &>> $log_file
 validate $? "Restarting shipping"
 
 echo "[INFO] ===== SCRIPT COMPLETED EXECUTION in $SECONDS seconds ====="
